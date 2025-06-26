@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oceora - AI for Customs Brokerage</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #1a365d;
+        --secondary: #00a0b0;
+        --accent: #2d9cdb;
+        --light: #f7fafc;
+        --dark: #2d3748;
+        --success: #38a169;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        color: var(--dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header */
+      header {
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        z-index: 100;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .logo span {
+        color: var(--secondary);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 30px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--dark);
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--secondary);
+      }
+
+      .cta-button {
+        background-color: var(--secondary);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-weight: 600;
+        transition: all 0.3s;
+      }
+
+      .cta-button:hover {
+        background-color: #008c99;
+        transform: translateY(-2px);
+      }
+
+      /* Hero Section */
+      .hero {
+        background: linear-gradient(135deg, #f7fafc 0%, #ebf4ff 100%);
+        padding: 180px 0 100px;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 20px;
+        line-height: 1.2;
+      }
+
+      .hero p {
+        font-size: 1.25rem;
+        color: var(--dark);
+        max-width: 700px;
+        margin: 0 auto 40px;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+      }
+
+      .secondary-button {
+        background-color: white;
+        color: var(--primary);
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-weight: 600;
+        border: 2px solid var(--primary);
+        transition: all 0.3s;
+      }
+
+      .secondary-button:hover {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      /* Value Props */
+      .value-props {
+        padding: 100px 0;
+        background-color: white;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .section-title h2 {
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 15px;
+      }
+
+      .section-title p {
+        color: var(--dark);
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .props-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      .prop-card {
+        background-color: var(--light);
+        border-radius: 10px;
+        padding: 30px;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .prop-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .prop-icon {
+        font-size: 2.5rem;
+        color: var(--secondary);
+        margin-bottom: 20px;
+      }
+
+      .prop-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: var(--primary);
+      }
+
+      /* Backed By */
+      .backed-by {
+        padding: 80px 0;
+        background-color: var(--light);
+      }
+
+      .logos {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 40px;
+        margin-top: 40px;
+      }
+
+      .logo-item {
+        height: 60px;
+        opacity: 0.7;
+        transition: opacity 0.3s;
+      }
+
+      .logo-item:hover {
+        opacity: 1;
+      }
+
+      /* How It Works */
+      .how-it-works {
+        padding: 100px 0;
+        background-color: white;
+      }
+
+      .steps {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 50px;
+        position: relative;
+      }
+
+      .step {
+        flex: 1;
+        text-align: center;
+        padding: 0 20px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .step-number {
+        width: 50px;
+        height: 50px;
+        background-color: var(--secondary);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0 auto 20px;
+      }
+
+      .step h3 {
+        margin-bottom: 15px;
+        color: var(--primary);
+      }
+
+      .steps::before {
+        content: "";
+        position: absolute;
+        top: 25px;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background-color: var(--light);
+        z-index: 1;
+      }
+
+      /* Integrations */
+      .integrations {
+        padding: 80px 0;
+        background-color: var(--light);
+      }
+
+      .vendor-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+      }
+
+      .vendor-card {
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s;
+      }
+
+      .vendor-card:hover {
+        transform: scale(1.05);
+      }
+
+      .vendor-card img {
+        max-width: 100%;
+        max-height: 40px;
+      }
+
+      /* Testimonials */
+      .testimonials {
+        padding: 100px 0;
+        background-color: white;
+      }
+
+      .testimonial-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 50px;
+      }
+
+      .testimonial-card {
+        background-color: var(--light);
+        padding: 30px;
+        border-radius: 10px;
+        position: relative;
+      }
+
+      .testimonial-card::before {
+        content: '"';
+        font-size: 5rem;
+        color: var(--secondary);
+        opacity: 0.2;
+        position: absolute;
+        top: 10px;
+        left: 20px;
+      }
+
+      .testimonial-content {
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+      }
+
+      .author-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: var(--secondary);
+        margin-right: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+      }
+
+      .author-info h4 {
+        color: var(--primary);
+      }
+
+      .author-info p {
+        font-size: 0.9rem;
+        color: var(--dark);
+      }
+
+      /* CTA Section */
+      .cta-section {
+        padding: 100px 0;
+        background: linear-gradient(135deg, var(--primary) 0%, #2c5282 100%);
+        color: white;
+        text-align: center;
+      }
+
+      .cta-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+      }
+
+      .cta-section p {
+        max-width: 700px;
+        margin: 0 auto 40px;
+        opacity: 0.9;
+      }
+
+      .cta-form {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 15px;
+        border-radius: 5px;
+        border: none;
+        font-family: "Inter", sans-serif;
+      }
+
+      .form-group textarea {
+        height: 120px;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark);
+        color: white;
+        padding: 60px 0 30px;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-column h3 {
+        color: white;
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-column ul li a {
+        color: #a0aec0;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-column ul li a:hover {
+        color: white;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-links a {
+        color: white;
+        font-size: 1.2rem;
+      }
+
+      .copyright {
+        text-align: center;
+        padding-top: 30px;
+        border-top: 1px solid #4a5568;
+        color: #a0aec0;
+        font-size: 0.9rem;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .fade-in {
+        animation: fadeIn 1s ease forwards;
+      }
+
+      .delay-1 {
+        animation-delay: 0.2s;
+      }
+      .delay-2 {
+        animation-delay: 0.4s;
+      }
+      .delay-3 {
+        animation-delay: 0.6s;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.2rem;
+        }
+
+        .hero-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .steps {
+          flex-direction: column;
+          gap: 50px;
+        }
+
+        .steps::before {
+          display: none;
+        }
+
+        .step::after {
+          content: "";
+          position: absolute;
+          bottom: -25px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 3px;
+          height: 50px;
+          background-color: var(--light);
+        }
+
+        .step:last-child::after {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <nav>
+          <div class="logo">Oceora<span>AI</span></div>
+          <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#integrations">Integrations</a>
+            <a href="#testimonials">Testimonials</a>
+          </div>
+          <a href="#contact" class="cta-button">Request Demo</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container fade-in">
+        <h1>Enhancing US Customs Brokerage & Freight Forwarders with AI</h1>
+        <p>Meet your new AI agent: Fast filings, fewer errors, human focus.</p>
+        <div class="hero-buttons">
+          <a href="#contact" class="cta-button">Request Demo</a>
+          <a href="#how-it-works" class="secondary-button">See How It Works</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Value Props -->
+    <section class="value-props" id="features">
+      <div class="container">
+        <div class="section-title">
+          <h2>Transform Your Customs Workflow</h2>
+          <p>
+            Our AI-powered platform automates the tedious so you can focus on
+            what matters
+          </p>
+        </div>
+        <div class="props-grid">
+          <div class="prop-card fade-in delay-1">
+            <div class="prop-icon">
+              <i class="fas fa-plug"></i>
+            </div>
+            <h3>Connect with PGA Systems</h3>
+            <p>
+              Seamless integration with Partner Government Agency systems for
+              streamlined compliance.
+            </p>
+          </div>
+          <div class="prop-card fade-in delay-2">
+            <div class="prop-icon">
+              <i class="fas fa-network-wired"></i>
+            </div>
+            <h3>Manufacturer Network</h3>
+            <p>
+              Access our extensive network of verified manufacturers for faster
+              clearance.
+            </p>
+          </div>
+          <div class="prop-card fade-in delay-3">
+            <div class="prop-icon">
+              <i class="fas fa-database"></i>
+            </div>
+            <h3>Smart Data Processing</h3>
+            <p>
+              AI that reads both structured and unstructured data from any
+              document format.
+            </p>
+          </div>
+          <div class="prop-card fade-in delay-1">
+            <div class="prop-icon">
+              <i class="fas fa-random"></i>
+            </div>
+            <h3>Vendor Integration</h3>
+            <p>
+              Smooth integration with ABI vendors and existing customs software.
+            </p>
+          </div>
+          <div class="prop-card fade-in delay-2">
+            <div class="prop-icon">
+              <i class="fas fa-user-clock"></i>
+            </div>
+            <h3>Free Up Employees</h3>
+            <p>
+              Automate manual data entry to focus your team on value-added
+              tasks.
+            </p>
+          </div>
+          <div class="prop-card fade-in delay-3">
+            <div class="prop-icon">
+              <i class="fas fa-check-double"></i>
+            </div>
+            <h3>Automated Compliance</h3>
+            <p>
+              Real-time checks flag missing fields or required licenses in
+              regulated industries.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Backed By -->
+    <section class="backed-by">
+      <div class="container">
+        <div class="section-title">
+          <h2>Backed By Industry Leaders</h2>
+          <p>
+            Supported by the most innovative institutions in technology and
+            logistics
+          </p>
+        </div>
+        <div class="logos">
+          <div class="logo-item">
+            <img
+              src="https://images.lumacdn.com/calendar-cover-images/2d/4c506c6e-3e06-4638-9b85-919703e182fd"
+              alt="NYU"
+              style="height: 40px"
+            />
+          </div>
+          <div class="logo-item">
+            <img
+              src="https://nyusternberkleycenter.com/wp-content/uploads/2022/08/BerkleyCenterLogo_Black_RGB.png"
+              alt="NYU Entrepreneur Lab"
+              style="height: 40px"
+            />
+          </div>
+          <div class="logo-item">
+            <img
+              src="https://media.licdn.com/dms/image/v2/D4E0BAQGj2uwiEETjyQ/company-logo_200_200/company-logo_200_200/0/1686231570233/tandonfuturelabs_logo?e=2147483647&v=beta&t=pB6-WZqQPr17Dt8_Umz1g53UgRcITjH8cKY6nptvH-8"
+              alt="NYU Tandon"
+              style="height: 30px"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+      <div class="container">
+        <div class="section-title">
+          <h2>How Oceora Works</h2>
+          <p>
+            Our simple four-step process revolutionizes customs documentation
+          </p>
+        </div>
+        <div class="steps">
+          <!-- <div class="step fade-in">
+            <div class="step-number">1</div>
+            <h3>Data Ingestion</h3>
+            <p>
+              Upload documents in any format - PDFs, emails, spreadsheets, or
+              connect directly to your systems.
+            </p>
+          </div> -->
+          <div class="step fade-in delay-1">
+            <div class="step-number">1</div>
+            <h3>AI Processing</h3>
+            <p>
+              Our AI extracts, validates, and structures all required customs
+              data automatically.
+            </p>
+          </div>
+          <div class="step fade-in delay-2">
+            <div class="step-number">2</div>
+            <h3>Human Review</h3>
+            <p>
+              Your team reviews flagged items through an intuitive dashboard
+              with full audit control.
+            </p>
+          </div>
+          <!-- <div class="step fade-in delay-3">
+            <div class="step-number">4</div>
+            <h3>Automated Filing</h3>
+            <p>
+              Documents are filed directly with customs authorities through our
+              ABI-certified system.
+            </p>
+          </div> -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Integrations -->
+    <!-- <section class="integrations" id="integrations">
+        <div class="container">
+            <div class="section-title">
+                <h2>Seamless Integrations</h2>
+                <p>Works with your existing ABI vendors and customs software</p>
+            </div>
+            <div class="vendor-grid">
+                <div class="vendor-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Adobe_Corporate_Logo.png/800px-Adobe_Corporate_Logo.png" alt="Adobe">
+                </div>
+                <div class="vendor-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Amazon_icon.svg/2048px-Amazon_icon.svg.png" alt="Amazon">
+                </div>
+                <div class="vendor-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/2048px-Microsoft_logo.svg.png" alt="Microsoft">
+                </div>
+                <div class="vendor-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/488px-Apple_logo_black.svg.png" alt="Apple">
+                </div>
+                <div class="vendor-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/2560px-IBM_logo.svg.png" alt="IBM">
+                </div>
+                <div class="vendor-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2048px-Google_%22G%22_Logo.svg.png" alt="Google">
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+      <div class="container">
+        <div class="section-title">
+          <h2>What Our Customers Say</h2>
+          <p>Trusted by leading logistics companies and customs brokers</p>
+        </div>
+        <div class="testimonial-grid">
+          <div class="testimonial-card fade-in">
+            <div class="testimonial-content">
+              <p>
+                Oceora reduced our filing errors by 92% and cut processing time
+                in half. The automated compliance checks alone have saved us
+                thousands in potential fines.
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-avatar">JD</div>
+              <div class="author-info">
+                <h4>John D.</h4>
+                <p>Director of Compliance, Global Freight Solutions</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card fade-in delay-1">
+            <div class="testimonial-content">
+              <p>
+                Implementation was seamless with our existing ABI vendor. Our
+                team now spends time on customer service instead of data entry -
+                a game changer.
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-avatar">MS</div>
+              <div class="author-info">
+                <h4>Maria S.</h4>
+                <p>VP Operations, Atlantic Customs Brokers</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card fade-in delay-2">
+            <div class="testimonial-content">
+              <p>
+                The manufacturer network integration has dramatically improved
+                our sourcing verification process. We're clearing shipments 40%
+                faster.
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-avatar">TW</div>
+              <div class="author-info">
+                <h4>Thomas W.</h4>
+                <p>CEO, Pacific Trade Logistics</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+      <div class="container">
+        <h2 class="fade-in">Ready to transform your customs workflow?</h2>
+        <p class="fade-in delay-1">
+          Schedule a demo to see how Oceora can streamline your operations and
+          reduce errors.
+        </p>
+        <div class="cta-form fade-in delay-2">
+          <form>
+            <div class="form-group">
+              <input type="text" placeholder="Your Name" required />
+            </div>
+            <div class="form-group">
+              <input type="email" placeholder="Your Email" required />
+            </div>
+            <div class="form-group">
+              <input type="text" placeholder="Company Name" required />
+            </div>
+            <div class="form-group">
+              <textarea
+                placeholder="Tell us about your customs workflow challenges"
+              ></textarea>
+            </div>
+            <button type="submit" class="cta-button" style="width: 100%">
+              Request Demo
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-column">
+            <h3>OceoraAI</h3>
+            <p>
+              Enhancing US customs brokerage and freight forwarding with
+              AI-powered automation.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-facebook"></i></a>
+            </div>
+          </div>
+          <div class="footer-column">
+            <h3>Product</h3>
+            <ul>
+              <li><a href="#">Features</a></li>
+              <li><a href="#">How It Works</a></li>
+              <li><a href="#">Integrations</a></li>
+              <li><a href="#">Pricing</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Legal</h3>
+            <ul>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Security</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>
+            &copy; 2023 OceoraAI. All rights reserved. | NYU Entrepreneur Lab |
+            NYU Tandon Future Lab | NYU Berkeley Center
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Simple animation trigger on scroll
+      document.addEventListener("DOMContentLoaded", function () {
+        const fadeElements = document.querySelectorAll(".fade-in");
+
+        const fadeObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.style.opacity = 1;
+                fadeObserver.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        fadeElements.forEach((element) => {
+          element.style.opacity = 0;
+          fadeObserver.observe(element);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute("href")).scrollIntoView({
+              behavior: "smooth",
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

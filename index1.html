@@ -1,0 +1,1187 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oceera AI - Enhancing Customs Brokerage with AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #dbeafe;
+            --secondary: #10b981;
+            --dark: #1e293b;
+            --darker: #0f172a;
+            --light: #f8fafc;
+            --lighter: #ffffff;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            --gradient-light: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--lighter);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-img {
+            height: 36px;
+            width: auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+        }
+        
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+        
+        .btn-outline {
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-light);
+        }
+        
+        .btn-white {
+            background-color: white;
+            color: var(--primary);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px;
+            background: var(--gradient-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, rgba(37, 99, 235, 0) 70%);
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+        }
+        
+        .hero h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .hero-image {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50%;
+            max-width: 700px;
+            z-index: 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Value Props */
+        .value-props {
+            padding: 120px 0;
+            background-color: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .section-header p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 18px;
+        }
+        
+        .props-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        
+        .prop-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 40px 30px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        
+        .prop-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .prop-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--primary-light);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            color: var(--primary);
+            font-size: 28px;
+        }
+        
+        .prop-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        
+        .prop-card p {
+            color: var(--gray);
+        }
+        
+        /* Backed By */
+        .backed-by {
+            padding: 100px 0;
+            background-color: var(--light);
+        }
+        
+        .logos-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 60px;
+            margin-top: 40px;
+        }
+        
+        .logo-item {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.3s;
+        }
+        
+        .logo-item:hover {
+            filter: grayscale(0);
+            opacity: 1;
+        }
+        
+        .logo-item img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+            max-width: 180px;
+        }
+        
+        /* Integrations */
+        .integrations {
+            padding: 120px 0;
+            background-color: white;
+        }
+        
+        .integration-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+        
+        .integration-header h2 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+        
+        .integration-header p {
+            color: var(--gray);
+            font-size: 18px;
+        }
+        
+        .integration-logos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .integration-item {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .integration-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .integration-item img {
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.3s;
+        }
+        
+        .integration-item:hover img {
+            filter: grayscale(0);
+            opacity: 1;
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            padding: 120px 0;
+            background-color: var(--light);
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 80px;
+            position: relative;
+        }
+        
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            padding: 0 30px;
+            z-index: 1;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 24px;
+            margin: 0 auto 25px;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+        
+        .step h3 {
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+        
+        .step p {
+            color: var(--gray);
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--light-gray);
+            z-index: 0;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 120px 0;
+            background-color: white;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            transition: all 0.3s;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 25px;
+            color: var(--dark);
+            font-size: 18px;
+            line-height: 1.7;
+            position: relative;
+        }
+        
+        .testimonial-content::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: -15px;
+            font-size: 60px;
+            color: var(--primary-light);
+            font-family: Georgia, serif;
+            line-height: 1;
+            z-index: 0;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+            margin-right: 20px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        /* CTA */
+        .cta {
+            padding: 120px 0;
+            background: var(--gradient);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            z-index: 0;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+            font-size: 18px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--darker);
+            color: white;
+            padding: 80px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-col h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: white;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .footer-logo img {
+            height: 30px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 46px;
+            }
+            
+            .hero-image {
+                opacity: 0.4;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero {
+                padding: 150px 0 80px;
+                text-align: center;
+            }
+            
+            .hero-content {
+                max-width: 100%;
+                margin: 0 auto;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+            
+            .hero-image {
+                position: relative;
+                width: 100%;
+                max-width: 600px;
+                margin: 60px auto 0;
+                transform: none;
+                top: auto;
+                right: auto;
+                opacity: 1;
+            }
+            
+            .steps {
+                flex-direction: column;
+                gap: 60px;
+            }
+            
+            .steps::before {
+                display: none;
+            }
+            
+            .step {
+                text-align: left;
+                display: flex;
+                gap: 30px;
+                padding: 0;
+            }
+            
+            .step-number {
+                margin: 0;
+                flex-shrink: 0;
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .step-content {
+                text-align: left;
+            }
+            
+            .step p {
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 38px;
+            }
+            
+            .section-header h2 {
+                font-size: 36px;
+            }
+            
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .integration-logos {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .section-header h2 {
+                font-size: 30px;
+            }
+            
+            .cta h2 {
+                font-size: 32px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <img src="https://via.placeholder.com/150x50?text=Oceera+Logo" alt="Oceera Logo" class="logo-img">
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="#">Product</a></li>
+                    <li><a href="#">Solutions</a></li>
+                    <li><a href="#">Integrations</a></li>
+                    <li><a href="#">Resources</a></li>
+                    <li><a href="#">Company</a></li>
+                </ul>
+                
+                <div class="nav-buttons">
+                    <a href="#" class="btn btn-outline">Login</a>
+                    <a href="#" class="btn btn-primary">Request Demo</a>
+                </div>
+                
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content animate">
+                <h1>Enhancing US Customs Brokerage and Freight Forwarders with AI</h1>
+                <p>Meet your new AI agent: Fast filings, fewer errors, human focus.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">Request Demo</a>
+                    <a href="#" class="btn btn-outline">Learn More</a>
+                </div>
+            </div>
+            <div class="hero-image animate delay-1">
+                <img src="https://via.placeholder.com/800x500/f0f9ff/2563eb?text=AI+Customs+Interface" alt="AI Agent Interface">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Value Propositions -->
+    <section class="value-props">
+        <div class="container">
+            <div class="section-header animate">
+                <h2>Transform Your Customs Workflow</h2>
+                <p>Our AI-powered platform streamlines your operations, reduces errors, and frees your team to focus on what matters most.</p>
+            </div>
+            
+            <div class="props-grid">
+                <div class="prop-card animate delay-1">
+                    <div class="prop-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h3>Seamless ABI Vendor Integration</h3>
+                    <p>Connect effortlessly with all major ABI vendors for smooth data flow and immediate processing.</p>
+                </div>
+                
+                <div class="prop-card animate delay-1">
+                    <div class="prop-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Manufacturer Network</h3>
+                    <p>Access our growing network of verified manufacturers and suppliers to streamline your supply chain.</p>
+                </div>
+                
+                <div class="prop-card animate delay-2">
+                    <div class="prop-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Data Intelligence</h3>
+                    <p>Process both structured and unstructured data with AI-powered accuracy and contextual understanding.</p>
+                </div>
+                
+                <div class="prop-card animate delay-2">
+                    <div class="prop-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Automated Compliance</h3>
+                    <p>AI checks flag missing fields or required licenses in real-time, reducing compliance risks.</p>
+                </div>
+                
+                <div class="prop-card animate delay-3">
+                    <div class="prop-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Human Productivity</h3>
+                    <p>Free employees from repetitive data entry for higher-value strategic tasks and customer service.</p>
+                </div>
+                
+                <div class="prop-card animate delay-3">
+                    <div class="prop-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Error Reduction</h3>
+                    <p>Dramatically reduce filing errors and customs delays with our intelligent validation system.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Backed By -->
+    <section class="backed-by">
+        <div class="container">
+            <div class="section-header animate">
+                <h2>Backed By Leading Institutions</h2>
+                <p>Our technology is supported by the most respected institutions in innovation and entrepreneurship.</p>
+            </div>
+            
+            <div class="logos-grid">
+                <div class="logo-item animate delay-1">
+                    <img src="https://media.licdn.com/dms/image/v2/D4E0BAQGj2uwiEETjyQ/company-logo_200_200/company-logo_200_200/0/1686231570233/tandonfuturelabs_logo?e=2147483647&v=beta&t=pB6-WZqQPr17Dt8_Umz1g53UgRcITjH8cKY6nptvH-8" alt="NYU Tandon Future Lab">
+                </div>
+                <div class="logo-item animate delay-2">
+                    <img src="https://nyusternberkleycenter.com/wp-content/uploads/2022/08/BerkleyCenterLogo_Black_RGB.png" alt="NYU Stern Berkley Center">
+                </div>
+                <div class="logo-item animate delay-3">
+                    <img src="https://images.lumacdn.com/calendar-cover-images/2d/4c506c6e-3e06-4638-9b85-919703e182fd" alt="NYU Entrepreneurial Institute">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Integrations -->
+    <section class="integrations">
+        <div class="container">
+            <div class="integration-header animate">
+                <h2>Trusted by Industry Leaders</h2>
+                <p>We integrate seamlessly with all major ABI vendors and logistics platforms to streamline your workflow.</p>
+            </div>
+            
+            <div class="integration-logos">
+                <div class="integration-item animate delay-1">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon">
+                </div>
+                <div class="integration-item animate delay-1">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Etsy_logo.svg" alt="Etsy">
+                </div>
+                <div class="integration-item animate delay-2">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/UPS_logo_2014.svg" alt="UPS">
+                </div>
+                <div class="integration-item animate delay-2">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/77/WooCommerce_logo.svg" alt="WooCommerce">
+                </div>
+                <div class="integration-item animate delay-3">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Oracle_logo.svg" alt="Oracle">
+                </div>
+                <div class="integration-item animate delay-3">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Netsuite_logo.svg" alt="NetSuite">
+                </div>
+                <div class="integration-item animate delay-1">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Xero_software_logo.svg" alt="Xero">
+                </div>
+                <div class="integration-item animate delay-2">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/QuickBooks_logo.svg" alt="QuickBooks">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-header animate">
+                <h2>How Oceera Works</h2>
+                <p>Our simple three-step process transforms your customs brokerage operations.</p>
+            </div>
+            
+            <div class="steps">
+                <div class="step animate delay-1">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Connect</h3>
+                        <p>Integrate with your existing systems and ABI vendors in minutes with our simple API or file upload options.</p>
+                    </div>
+                </div>
+                
+                <div class="step animate delay-2">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Process</h3>
+                        <p>Our AI analyzes and structures your data, extracting key information from both structured forms and unstructured documents.</p>
+                    </div>
+                </div>
+                
+                <div class="step animate delay-3">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>File</h3>
+                        <p>Automated submissions with human oversight ensure accuracy while dramatically reducing manual work.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header animate">
+                <h2>What Our Customers Say</h2>
+                <p>Don't just take our word for it - hear from customs professionals who use Oceera every day.</p>
+            </div>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card animate delay-1">
+                    <div class="testimonial-content">
+                        Oceera has reduced our filing errors by 85% and freed up our team to focus on client relationships instead of data entry.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah Johnson">
+                        </div>
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Director of Operations, Global Freight Solutions</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card animate delay-2">
+                    <div class="testimonial-content">
+                        The automated compliance checks have saved us countless hours and prevented several potential fines. The ROI was immediate.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen">
+                        </div>
+                        <div class="author-info">
+                            <h4>Michael Chen</h4>
+                            <p>Customs Manager, TransAtlantic Logistics</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card animate delay-3">
+                    <div class="testimonial-content">
+                        Integrating with our existing ABI vendors was seamless. We were up and running with minimal disruption to our workflow.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Lisa Rodriguez">
+                        </div>
+                        <div class="author-info">
+                            <h4>Lisa Rodriguez</h4>
+                            <p>VP of Compliance, BorderFast Customs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content animate">
+                <h2>Ready to transform your customs workflow?</h2>
+                <p>See how Oceera can reduce errors, save time, and help your team focus on strategic work instead of data entry.</p>
+                <a href="#" class="btn btn-white">Request a Demo</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="https://via.placeholder.com/150x50?text=Oceera+Logo" alt="Oceera Logo">
+                    </div>
+                    <p>Enhancing US customs brokerage and freight forwarding with AI.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Integrations</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Guides</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                
+                   
+                <div class="footer-col">
+                    <h3>Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Integrations</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Guides</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Legal</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Oceera AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Simple mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Animation on scroll could be added here
+    </script>
+</body>
+</html>
